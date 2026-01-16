@@ -1,0 +1,75 @@
+format = """\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$bun\
+$cmd_duration\
+\n$character\
+"""
+
+add_newline = true
+command_timeout = 3600000
+
+[username]
+disabled = false
+format = "[$user]($style) "
+show_always = true
+style_root = "bold #F38BA8"
+style_user = "bold #89B4FA"
+
+[hostname]
+format = "[@$hostname]($style) "
+ssh_only = false
+style = "bold #A6E3A1"
+
+[directory]
+style = "bold #F9E2AF"
+format = "[$path]($style) "
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "[$branch]($style) "
+style = "bold #CBA6F7"
+symbol = ""
+truncation_length = 20
+truncation_symbol = "…"
+
+[git_status]
+format = "[$all_status$ahead_behind]($style) "
+style = "bold #FAB387"
+modified = "*"
+staged = "+"
+untracked = "?"
+stashed = "S"
+
+[nodejs]
+format = "[$version]($style) "
+style = "bold #A6E3A1"
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
+
+[bun]
+format = "[$version]($style) "
+style = "bold #F9E2AF"
+detect_files = ["bun.lockb", "bunfig.toml"]
+detect_folders = ["node_modules"]
+
+[cmd_duration]
+min_time = 2000
+format = " [$duration]($style)"
+style = "bold #6C7086"
+show_milliseconds = false
+
+[time]
+disabled = false
+time_format = "%R"
+format = " [[ $time ]]($style)"
+style = "bold #6C7086"
+
+[character]
+success_symbol = "[>](bold #A6E3A1) "
+error_symbol = "[>](bold #F38BA8) "
