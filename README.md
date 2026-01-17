@@ -11,11 +11,7 @@ shell-setup/
 ├── install-wsl.sh         # Script de instalación para WSL
 ├── alacritty.toml         # Configuración de Alacritty (Windows)
 ├── starship.toml          # Configuración de Starship (WSL)
-├── zellij.kdl             # Configuración de Zellij (WSL)
-└── layouts/               # Layouts específicos de Zellij
-    ├── dev.kdl
-    ├── git.kdl
-    └── fullstack.kdl
+└── zellij.kdl             # Configuración de Zellij (WSL, incluye layouts)
 ```
 
 ## 🚀 Instalación
@@ -298,7 +294,7 @@ ren "%APPDATA%\Alacritty\alacritty.toml.backup.*" alacritty.toml
 ## 🐛 Troubleshooting
 
 ### Issues Comunes
-1. **Zellij no encuentra layouts**: Verificar que existan en `~/.config/zellij/layouts/` o en `~/.shell-setup/layouts/`
+1. **Zellij no encuentra layouts**: Los layouts están integrados en `zellij.kdl`
 2. **Alacritty no reconoce fuentes**: Instalar JetBrains Mono Nerd Font en Windows
 3. **Starship no funciona**: Verificar que esté en `.bashrc` y recargar con `source ~/.bashrc`
 4. **Zellij no se inicia**: Asegurarse de que snap esté instalado en WSL (`sudo apt install snapd`)
