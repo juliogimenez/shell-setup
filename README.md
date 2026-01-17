@@ -64,7 +64,7 @@ winget install Alacritty.Alacritty
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git neovim build-essential
 
-# Nota: Starship y Zellij se instalan automáticamente por el script
+# Nota: Starship, Zellij, Zoxide y fzf se instalan automáticamente por el script
 ```
 
 ## 🎯 Uso del Entorno
@@ -85,6 +85,38 @@ zellij
 ```
 
 ## ⚡ Comandos Principales
+
+### fzf - Fuzzy Finder Interactivo
+```bash
+# Historial de comandos (Ctrl+R)
+Ctrl + R       # Buscar en historial de comandos
+
+# Buscar archivos (Ctrl+T)
+Ctrl + T       # Buscar archivos en directorio actual
+
+# Buscar directorios (Alt+C)
+Alt + C        # Buscar directorios para cd
+
+# Zoxide interactivo (usa fzf)
+zi             # Buscar fuzzy entre directorios frecuentes
+z -i           # Mismo que zi (alias)
+z -l           # Listar directorios frecuentes con scores
+z -            # Ir al directorio anterior
+```
+
+### Zoxide - Jump Directory Inteligente
+```bash
+# Salta a directorios frecuentes
+z proyecto              # Salta a proyecto si lo has visitado mucho
+zi proyecto             # Búsqueda interactiva con fzf (recomendado)
+
+# Listar y manejar
+z -l                    # Ver todos tus directorios frecuentes
+z -r                    # Búsqueda con regex
+z -s                    # Case insensitive
+```
+
+**Nota:** Zoxide aprende de tus visitas, usa `zi` para fuzzy search cuando no autocompleta.
 
 ### Alacritty (Windows)
 ```powershell

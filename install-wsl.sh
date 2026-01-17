@@ -128,6 +128,17 @@ install_zoxide() {
     fi
 }
 
+install_fzf() {
+    if [ ! -d "$HOME/.fzf" ]; then
+        echo -e "${BLUE}[INFO] Installing fzf...${NC}"
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install --all
+        echo -e "${GREEN}[OK] fzf installed${NC}"
+    else
+        echo -e "${YELLOW}[INFO] fzf already installed${NC}"
+    fi
+}
+
 update_bashrc() {
     local bashrc="$HOME/.bashrc"
     local starship_init='eval "$(starship init bash)"'
@@ -188,6 +199,7 @@ echo "Verifying required software installation..."
 install_starship
 install_zellij
 install_zoxide
+install_fzf
 
 # Update shell configuration
 update_bashrc
