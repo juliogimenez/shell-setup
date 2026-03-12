@@ -268,17 +268,23 @@ Ctrl + o → d
 ```
 
 ## 🎨 Temas y Apariencia
+## 🎨 Estética y Tema
 
-### Catppuccin Mocha
-Todos los componentes usan el tema Catppuccin Mocha:
-- **Background**: `#2D2A2E`
-- **Foreground**: `#CDD6F4`
-- **Accent Colors**: Rosa, Verde, Azul, Amarillo consistentes
+El entorno utiliza un **Tema Oscuro Personalizado** de alto contraste, diseñado para reducir la fatiga visual y mejorar la legibilidad del código:
+
+- **Fondo**: `#16161a` (Negro profundo)
+- **Texto Principal**: `#E4E4E7` (Gris claro / Zinc)
+- **Colores de Acento**:
+  - **Verde**: `#A6E3A1` (Éxito y Prompt)
+  - **Azul**: `#7DCFFF` (Directorios y Links)
+  - **Magenta**: `#CBA6F7` (Keywords y Especiales)
+  - **Cyan**: `#94E2D5` (FZF y Selección)
 
 ### IosevkaTerm Nerd Font
 - Fuente principal para todos los terminales
 - Mejor legibilidad y soporte de íconos
 - Tamaño 13.0 recomendado
+
 
 ## 🛠️ Recuperación y Depuración (Troubleshooting)
 
