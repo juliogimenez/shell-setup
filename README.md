@@ -267,7 +267,6 @@ zellij new-session --session-name my-project
 Ctrl + o → d
 ```
 
-## 🎨 Temas y Apariencia
 ## 🎨 Estética y Tema
 
 El entorno utiliza un **Tema Oscuro Personalizado** de alto contraste, diseñado para reducir la fatiga visual y mejorar la legibilidad del código:
