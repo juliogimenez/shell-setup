@@ -18,7 +18,7 @@ disabled = false
 format = "[$user]($style) "
 show_always = true
 style_root = "bold #F38BA8"
-style_user = "bold #89B4FA"
+style_user = "bold #94E2D5"
 
 [hostname]
 format = "[@$hostname]($style) "
@@ -40,7 +40,7 @@ truncation_symbol = "…"
 
 [git_status]
 format = "[$all_status$ahead_behind]($style) "
-style = "bold #FAB387"
+style = "bold #CBA6F7"
 modified = "*"
 staged = "+"
 untracked = "?"
@@ -61,14 +61,14 @@ detect_folders = ["node_modules"]
 [cmd_duration]
 min_time = 2000
 format = " [$duration]($style)"
-style = "bold #6C7086"
+style = "bold #5C5F66"
 show_milliseconds = false
 
 [time]
 disabled = false
 time_format = "%R"
 format = " [[ $time ]]($style)"
-style = "bold #6C7086"
+style = "bold #5C5F66"
 
 [character]
 success_symbol = "[>](bold #A6E3A1) "

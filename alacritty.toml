@@ -18,27 +18,27 @@ history = 10000
 multiplier = 3
 
 [font]
-size = 11.0
+size = 13.0
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
-style = "Light"
+family = "IosevkaTerm Nerd Font"
+style = "Regular"
 
 [font.bold]
-family = "JetBrainsMono Nerd Font"
+family = "IosevkaTerm Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font"
+family = "IosevkaTerm Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font"
+family = "IosevkaTerm Nerd Font"
 style = "Bold Italic"
 
 [colors.primary]
-background = "#2D2A2E"
-foreground = "#CDD6F4"
+background = "#16161a"
+foreground = "#E4E4E7"
 
 [colors.cursor]
 cursor = "#F5E0DC"
@@ -61,9 +61,9 @@ black = "#313244"
 red = "#F38BA8"
 green = "#A6E3A1"
 yellow = "#F9E2AF"
-blue = "#89B4FA"
+blue = "#7DCFFF"
 magenta = "#CBA6F7"
-cyan = "#89DCEB"
+cyan = "#94E2D5"
 white = "#CDD6F4"
 
 [colors.bright]
@@ -71,9 +71,9 @@ black = "#6C7086"
 red = "#F38BA8"
 green = "#A6E3A1"
 yellow = "#F9E2AF"
-blue = "#89B4FA"
+blue = "#7DCFFF"
 magenta = "#CBA6F7"
-cyan = "#89DCEB"
+cyan = "#94E2D5"
 white = "#BAC2DE"
 
 [[colors.indexed_colors]]

@@ -319,6 +319,19 @@ layouts {
 
 // Themes
 themes {
+    vibrajs {
+        fg "#E4E4E7"
+        bg "#16161a"
+        red "#F38BA8"
+        green "#A6E3A1"
+        yellow "#F9E2AF"
+        blue "#7DCFFF"
+        magenta "#CBA6F7"
+        cyan "#94E2D5"
+        orange "#F9E2AF"
+        black "#18191D"
+        white "#E4E4E7"
+    }
     catppuccin-mocha {
         fg 252 252 250   // FCFCFA (White/Foreground de Alacritty)
         bg 45 42 46      // 2D2A2E (Background de Alacritty)
@@ -334,4 +347,4 @@ themes {
     }
 }
 
-theme "catppuccin-mocha"
+theme "vibrajs"
