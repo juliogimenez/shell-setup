@@ -1,0 +1,13 @@
+.vibrajs/
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+node_modules/
+dist/
+build/
+.env
+.venv
+venv/
+__pycache__/
+*.backup.*

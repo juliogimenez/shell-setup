@@ -25,8 +25,9 @@ cd shell-setup
 ```
 
 Este script instala automáticamente:
-- Configuración de WSL (Starship, Zellij, symlinks)
+- Configuración de WSL (Zsh, Starship, Zellij, symlinks)
 - Configuración de Windows (Alacritty)
+- Plugins de productividad (Zsh Autosuggestions, Syntax Highlighting)
 
 ### Opción alternativa: Instalación manual
 
@@ -50,7 +51,7 @@ cd shell-setup
 # Instalar Alacritty
 winget install Alacritty.Alacritty
 
-# Instalar JetBrains Mono Nerd Font
+# Instalar IosevkaTerm Nerd Font
 # Descargar desde: https://www.nerdfonts.com/font-downloads
 ```
 
@@ -81,6 +82,19 @@ zellij
 ```
 
 ## ⚡ Comandos Principales
+
+### Modern Unix Stack (Rust Tools)
+El entorno incluye reemplazos modernos para los comandos clásicos de Linux:
+- **`ls` → `eza`**: Listado con iconos, colores y jerarquía.
+  - `ls`, `ll`, `la`, `lt` (árbol).
+- **`cat` → `bat`**: Lectura de archivos con resaltado de sintaxis.
+  - `cat archivo.js`
+- **`grep` → `rg`**: Búsqueda de texto ultra rápida con Ripgrep.
+  - `grep "texto" .`
+- **`find` → `fd`**: Búsqueda de archivos simple y rápida.
+  - `find nombre`
+- **`cd` → `z`**: Navegación inteligente con Zoxide.
+  - `cd proyecto` (salta al directorio más frecuente)
 
 ### fzf - Fuzzy Finder Interactivo
 ```bash
@@ -261,10 +275,10 @@ Todos los componentes usan el tema Catppuccin Mocha:
 - **Foreground**: `#CDD6F4`
 - **Accent Colors**: Rosa, Verde, Azul, Amarillo consistentes
 
-### JetBrains Mono Nerd Font
+### IosevkaTerm Nerd Font
 - Fuente principal para todos los terminales
 - Mejor legibilidad y soporte de íconos
-- Tamaño 11px recomendado
+- Tamaño 13.0 recomendado
 
 ## 📁 Gestión de Configuración
 
@@ -295,10 +309,10 @@ ren "%APPDATA%\Alacritty\alacritty.toml.backup.*" alacritty.toml
 
 ### Issues Comunes
 1. **Zellij no encuentra layouts**: Los layouts están integrados en `zellij.kdl`
-2. **Alacritty no reconoce fuentes**: Instalar JetBrains Mono Nerd Font en Windows
-3. **Starship no funciona**: Verificar que esté en `.bashrc` y recargar con `source ~/.bashrc`
-4. **Zellij no se inicia**: Asegurarse de que snap esté instalado en WSL (`sudo apt install snapd`)
-5. **SSH con WSL**: Usar `wsl -d Ubuntu` en Windows terminal
+2. **Alacritty no reconoce fuentes**: Instalar IosevkaTerm Nerd Font en Windows
+3. **Starship no funciona**: Verificar que esté en `.zshrc` (o `.bashrc`) y recargar con `source ~/.zshrc`
+4. **Zellij no se inicia**: Asegurarse de que `zellij` esté instalado (`sudo apt install zellij` o `snap install zellij`)
+5. **SSH con WSL**: Usar `wsl -d <distro_name>` en Windows terminal (ej: Ubuntu, Debian)
 
 ### Resetear Entorno
 ```bash

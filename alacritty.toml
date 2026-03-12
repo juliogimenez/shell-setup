@@ -41,40 +41,32 @@ background = "#16161a"
 foreground = "#E4E4E7"
 
 [colors.cursor]
-cursor = "#F5E0DC"
-text = "#2D2A2E"
+cursor = "#A6E3A1"
+text = "#16161a"
 
 [colors.selection]
-background = "#5B595C"
-text = "#CDD6F4"
-
-[colors.search]
-matches = { foreground = "#1E1E2E", background = "#A6E3A1" }
-focused_match = { foreground = "#1E1E2E", background = "#FAB387" }
-
-[colors.hints]
-start = { background = "#45475A", foreground = "#94E2D5" }
-end = { background = "#45475A", foreground = "#A6E3A1" }
+background = "#3A404B"
+text = "#E4E4E7"
 
 [colors.normal]
-black = "#313244"
+black = "#18191D"
 red = "#F38BA8"
 green = "#A6E3A1"
 yellow = "#F9E2AF"
 blue = "#7DCFFF"
 magenta = "#CBA6F7"
 cyan = "#94E2D5"
-white = "#CDD6F4"
+white = "#dbd7ca"
 
 [colors.bright]
-black = "#6C7086"
+black = "#777777"
 red = "#F38BA8"
 green = "#A6E3A1"
 yellow = "#F9E2AF"
 blue = "#7DCFFF"
 magenta = "#CBA6F7"
 cyan = "#94E2D5"
-white = "#BAC2DE"
+white = "#ffffff"
 
 [[colors.indexed_colors]]
 index = 16

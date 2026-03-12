@@ -322,28 +322,15 @@ themes {
     vibrajs {
         fg "#E4E4E7"
         bg "#16161a"
+        black "#18191D"
         red "#F38BA8"
         green "#A6E3A1"
         yellow "#F9E2AF"
         blue "#7DCFFF"
         magenta "#CBA6F7"
         cyan "#94E2D5"
-        orange "#F9E2AF"
-        black "#18191D"
-        white "#E4E4E7"
-    }
-    catppuccin-mocha {
-        fg 252 252 250   // FCFCFA (White/Foreground de Alacritty)
-        bg 45 42 46      // 2D2A2E (Background de Alacritty)
-        red 243 139 168  // F38BA8
-        green 166 227 161 // A6E3A1
-        yellow 249 226 175 // F9E2AF
-        blue 137 180 250 // 89B4FA
-        magenta 203 166 247 // CBA6F7
-        cyan 137 220 235  // 89DCEB
-        orange 250 179 135 // FAB387
-        black 49 50 68   // 313244
-        white 205 214 244 // CDD6F4
+        white "#dbd7ca"
+        orange "#FAB387"
     }
 }
 

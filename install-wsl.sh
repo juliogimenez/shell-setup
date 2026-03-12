@@ -116,13 +116,8 @@ install_zellij() {
 install_zoxide() {
     if ! command_exists zoxide; then
         echo -e "${BLUE}[INFO] Installing Zoxide...${NC}"
-        echo -e "${YELLOW}[INFO] Password required for apt install${NC}"
         sudo apt update && sudo apt install -y zoxide
-        if [ $? -eq 0 ]; then
-            echo -e "${GREEN}[OK] Zoxide installed${NC}"
-        else
-            echo -e "${RED}[ERROR] Failed to install Zoxide. Run manually: sudo apt install zoxide${NC}"
-        fi
+        echo -e "${GREEN}[OK] Zoxide installed${NC}"
     else
         echo -e "${YELLOW}[INFO] Zoxide already installed: $(zoxide --version)${NC}"
     fi
@@ -139,38 +134,163 @@ install_fzf() {
     fi
 }
 
-update_bashrc() {
-    local bashrc="$HOME/.bashrc"
-    local starship_init='eval "$(starship init bash)"'
-    local zellij_init='eval "$(zellij setup --generate-auto-start bash)"'
-    local zoxide_init='eval "$(zoxide init bash)"'
-
-    echo -e "${BLUE}[INFO] Updating ~/.bashrc...${NC}"
-
-    if ! grep -q "starship init bash" "$bashrc"; then
-        echo -e "\\n# Starship Prompt" >> "$bashrc"
-        echo "$starship_init" >> "$bashrc"
-        echo -e "${GREEN}[OK] Added Starship to ~/.bashrc${NC}"
+install_zsh() {
+    if ! command_exists zsh; then
+        echo -e "${BLUE}[INFO] Installing Zsh...${NC}"
+        sudo apt update && sudo apt install -y zsh
+        echo -e "${GREEN}[OK] Zsh installed${NC}"
     else
-        echo -e "${YELLOW}[INFO] Starship already in ~/.bashrc${NC}"
+        echo -e "${YELLOW}[INFO] Zsh already installed: $(zsh --version)${NC}"
     fi
 
-    if ! grep -q "zellij setup.*bash" "$bashrc"; then
-        echo -e "\\n# Zellij Terminal Multiplexer" >> "$bashrc"
-        echo "$zellij_init" >> "$bashrc"
-        echo -e "${GREEN}[OK] Added Zellij to ~/.bashrc${NC}"
-    else
-        echo -e "${YELLOW}[INFO] Zellij already in ~/.bashrc${NC}"
-    fi
+    # Install plugins
+    local plugin_dir="$HOME/.zsh/plugins"
+    mkdir -p "$plugin_dir"
 
-    if ! grep -q "zoxide init bash" "$bashrc"; then
-        echo -e "\\n# Zoxide Jump Directory" >> "$bashrc"
-        echo "$zoxide_init" >> "$bashrc"
-        echo -e "${GREEN}[OK] Added Zoxide to ~/.bashrc${NC}"
-    else
-        echo -e "${YELLOW}[INFO] Zoxide already in ~/.bashrc${NC}"
-    fi
-}
+    if [ ! -d "$plugin_dir/zsh-autosuggestions" ]; then
+        echo -e "${BLUE}[INFO] Installing zsh-autosuggestions...${NC}"
+        git clone https://github.com/zsh-users/zsh-autosuggestions "$plugin_dir/zsh-autosuggestions"
+    install_zsh() {
+    ...
+        if [ ! -d "$plugin_dir/zsh-syntax-highlighting" ]; then
+            echo -e "${BLUE}[INFO] Installing zsh-syntax-highlighting...${NC}"
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting "$plugin_dir/zsh-syntax-highlighting"
+        fi
+    }
+
+    install_modern_tools() {
+        echo -e "${BLUE}[INFO] Installing Modern Unix Stack...${NC}"
+
+        # eza (Reemplazo de ls)
+        if ! command_exists eza; then
+            echo -e "${BLUE}[INFO] Installing eza...${NC}"
+            sudo mkdir -p /etc/apt/keyrings
+            wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+            echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+            sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+            sudo apt update
+            sudo apt install -y eza
+        fi
+
+        # bat, ripgrep, fd-find (Vía apt)
+        sudo apt install -y bat ripgrep fd-find
+
+        # Symlink para fd y bat (en Ubuntu a veces tienen nombres diferentes)
+        mkdir -p "$HOME/.local/bin"
+        [ -f /usr/bin/fdfind ] && [ ! -f "$HOME/.local/bin/fd" ] && ln -s /usr/bin/fdfind "$HOME/.local/bin/fd"
+        [ -f /usr/bin/batcat ] && [ ! -f "$HOME/.local/bin/bat" ] && ln -s /usr/bin/batcat "$HOME/.local/bin/bat"
+
+        echo -e "${GREEN}[OK] Modern Unix Stack installed${NC}"
+    }
+
+    update_bashrc() {
+        local bashrc="$HOME/.bashrc"
+        echo -e "${BLUE}[INFO] Updating ~/.bashrc...${NC}"
+
+        # Path settings
+        if ! grep -q ".local/bin" "$bashrc"; then
+            echo -e "\n# Local Path\nexport PATH=\"\$HOME/.local/bin:\$PATH\"" >> "$bashrc"
+        fi
+
+        if ! grep -q "starship init bash" "$bashrc"; then
+            echo -e "\n# Starship Prompt\neval \"\$(starship init bash)\"" >> "$bashrc"
+        fi
+
+        if ! grep -q "zellij setup.*bash" "$bashrc"; then
+            echo -e "\n# Zellij\neval \"\$(zellij setup --generate-completion bash)\"" >> "$bashrc"
+        fi
+
+        if ! grep -q "zoxide init bash" "$bashrc"; then
+            echo -e "\n# Zoxide\neval \"\$(zoxide init bash)\"" >> "$bashrc"
+        fi
+
+        # Productivity Aliases
+        if ! grep -q "alias ls='eza" "$bashrc"; then
+            cat >> "$bashrc" << 'EOF'
+
+    # Productivity Aliases
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -lh --icons --group-directories-first'
+    alias la='eza -a --icons --group-directories-first'
+    alias lt='eza --tree --icons'
+    alias cat='bat --paging=never'
+    alias grep='rg'
+    alias find='fd'
+    alias cd='z'
+    EOF
+        fi
+    }
+
+    update_zshrc() {
+        local zshrc="$HOME/.zshrc"
+        echo -e "${BLUE}[INFO] Updating ~/.zshrc...${NC}"
+
+        if [ ! -f "$zshrc" ]; then
+            touch "$zshrc"
+        fi
+
+        # Path settings (Added at the beginning)
+        if ! grep -q ".cargo/bin" "$zshrc" || ! grep -q ".local/bin" "$zshrc"; then
+            echo -e "# Path settings\nexport PATH=\"\$HOME/.cargo/bin:\$HOME/.local/bin:\$PATH\"\n$(cat "$zshrc")" > "$zshrc"
+        fi
+
+        # Basic Zsh config
+        if ! grep -q "HISTFILE" "$zshrc"; then
+            cat >> "$zshrc" << 'EOF'
+
+    # History settings
+    HISTFILE=~/.zsh_history
+    HISTSIZE=10000
+    SAVEHIST=10000
+    setopt APPEND_HISTORY
+    setopt SHARE_HISTORY
+    setopt HIST_IGNORE_DUPS
+    EOF
+        fi
+
+        # Plugins & FZF Integration
+        if ! grep -q "zsh-autosuggestions" "$zshrc"; then
+            cat >> "$zshrc" << 'EOF'
+
+    # Plugins
+    source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+    # FZF Integration
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    EOF
+        fi
+
+        # Productivity Aliases
+        if ! grep -q "alias ls='eza" "$zshrc"; then
+            cat >> "$zshrc" << 'EOF'
+
+    # Productivity Aliases
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -lh --icons --group-directories-first'
+    alias la='eza -a --icons --group-directories-first'
+    alias lt='eza --tree --icons'
+    alias cat='bat --paging=never'
+    alias grep='rg'
+    alias find='fd'
+    alias cd='z'
+    EOF
+        fi
+
+        # Tools integration
+        if ! grep -q "starship init zsh" "$zshrc"; then
+            echo -e "\n# Starship Prompt\neval \"\$(starship init zsh)\"" >> "$zshrc"
+        fi
+
+        if ! grep -q "zellij setup.*zsh" "$zshrc"; then
+            echo -e "\n# Zellij\neval \"\$(zellij setup --generate-completion zsh)\"" >> "$zshrc"
+        fi
+
+        if ! grep -q "zoxide init zsh" "$zshrc"; then
+            echo -e "\n# Zoxide\neval \"\$(zoxide init zsh)\"" >> "$zshrc"
+        fi
+    }
+
 
 # Main installation process
 echo ""
@@ -200,9 +320,23 @@ install_starship
 install_zellij
 install_zoxide
 install_fzf
+install_zsh
+install_modern_tools
 
 # Update shell configuration
 update_bashrc
+update_zshrc
+
+# Ask to change default shell
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo -e "\n${YELLOW}[?] Do you want to change your default shell to Zsh? (y/N)${NC}"
+    read -r response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        echo -e "${BLUE}[INFO] Changing default shell to Zsh...${NC}"
+        sudo chsh -s "$(which zsh)" "$USER"
+        echo -e "${GREEN}[OK] Default shell changed to Zsh${NC}"
+    fi
+fi
 
 echo ""
 echo "WSL installation completed!"
@@ -211,9 +345,12 @@ echo ""
 echo -e "${GREEN}[OK] Files installed:${NC}"
 echo -e "  ~/.config/starship.toml → shell-setup/starship.toml"
 echo -e "  ~/.config/zellij/config.kdl → shell-setup/zellij.kdl"
+echo -e "  ~/.zshrc (updated)"
+echo -e "  ~/.bashrc (updated)"
 echo ""
 echo -e "${BLUE}[INFO] To apply changes:${NC}"
-echo -e "  source ~/.bashrc"
+echo -e "  source ~/.zshrc (if using Zsh)"
+echo -e "  source ~/.bashrc (if using Bash)"
 echo -e "  OR restart your terminal"
 echo ""
 echo -e "${GREEN}[OK] Your WSL development environment is ready!${NC}"
