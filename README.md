@@ -280,6 +280,54 @@ Todos los componentes usan el tema Catppuccin Mocha:
 - Mejor legibilidad y soporte de íconos
 - Tamaño 13.0 recomendado
 
+## 🛠️ Recuperación y Depuración (Troubleshooting)
+
+Si algo llegara a fallar durante la instalación automática, puedes ejecutar estos pasos manualmente para recuperar el entorno:
+
+### 1. Reinstalación de Zsh y Plugins
+Si los plugins no cargan o Zsh falla:
+```bash
+# Reinstalar Zsh
+sudo apt update && sudo apt install -y zsh
+
+# Forzar descarga de plugins
+rm -rf ~/.zsh/plugins
+mkdir -p ~/.zsh/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
+```
+
+### 2. Verificar Starship y Modern Unix
+Si los comandos como `ls` o `cat` no muestran iconos o colores:
+```bash
+# Reinstalar binarios básicos
+sudo apt install -y bat ripgrep fd-find zoxide
+
+# Verificar symlinks para Ubuntu
+mkdir -p ~/.local/bin
+[ ! -f ~/.local/bin/fd ] && ln -s $(which fdfind) ~/.local/bin/fd
+[ ! -f ~/.local/bin/bat ] && ln -s $(which batcat) ~/.local/bin/bat
+
+# Recargar configuración
+source ~/.zshrc
+```
+
+### 3. Problemas de Ruta (PATH)
+Si recibes errores de `command not found`, asegúrate de que estas líneas estén al inicio de tu `~/.zshrc`:
+```bash
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+```
+
+### 4. Resetear configuración completa
+Si prefieres empezar de cero sin borrar tus archivos:
+```bash
+rm -rf ~/.shell-setup
+rm ~/.zshrc ~/.bashrc ~/.starship.toml ~/.zellij.kdl
+# Vuelve a correr: ./install-wsl.sh
+```
+
+---
+
 ## 📁 Gestión de Configuración
 
 ### Actualizar Configuraciones
